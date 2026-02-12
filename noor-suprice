@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noor 💖 Surprise</title>
+<style>
+body{
+  margin:0; padding:0; height:100vh; overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  text-align:center;
+  background: linear-gradient(to top,#ffe4e1,#ffc0cb);
+}
+
+/* Floating emojis */
+#floatingContainer{position:absolute;bottom:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+.floatingEmoji{position:absolute;bottom:0;animation:floatUp linear forwards;z-index:2;opacity:0.5;font-size:14px;}
+@keyframes floatUp{0%{transform:translateY(0);}100%{transform:translateY(-100vh);}}
+
+/* Pages */
+.page{display:none;width:100%;padding-top:15vh;z-index:3;}
+.page.active{display:block;}
+
+/* Buttons */
+button{padding:12px 28px;font-size:18px;border:none;border-radius:30px;margin:12px;cursor:pointer;background:black;color:white;}
+button.no{position:absolute;}
+
+/* Text + images */
+h1{font-size:28px;margin-bottom:20px;text-shadow:0 0 5px #000;}
+h2{font-size:18px;margin-bottom:15px;}
+img{width:240px;max-width:80%;border-radius:20px;margin:20px 0;transition:transform 0.6s;}
+.page.active img:hover{transform:scale(1.05);}
+
+/* Heart button */
+.heart-btn{font-size:50px;padding:20px;margin-top:20px;border-radius:50%;background:#ff3b7c;border:none;color:white;cursor:pointer;animation:beat 1s infinite;}
+@keyframes beat{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
+
+/* I LOVE YOU text */
+#loveText{font-size:40px;font-weight:bold;font-style:italic;margin-top:20px;color:#ff0066;}
+
+/* Confetti */
+.confetti-piece{position:absolute;width:8px;height:8px;background:#fff;opacity:0.9;border-radius:50%;animation:confettiFall linear forwards;}
+@keyframes confettiFall{0%{transform:translateY(0);}100%{transform:translateY(150vh);}}
+
+/* Gift */
+#gift{width:150px;height:150px;background:linear-gradient(135deg,#ffb6c1,#000);border-radius:20px;margin:30px auto;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:50px;}
+
+/* Typing text */
+#finalText{font-size:24px;color:black;font-weight:bold;font-style:italic;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<div id="floatingContainer"></div>
+
+<!-- 1) Hug Ask -->
+<div class="page active" id="hugAsk">
+  <h1>Happy Hug Day Noor ❤️🤌🏻<br>Can I hug you? 🤗</h1>
+  <button class="yes" onclick="hugYes()">YES</button>
+  <button class="no">NO</button>
+</div>
+
+<!-- 2) Hug Animation -->
+<div class="page" id="hug">
+  <h1>This hug feels like home 🫂❤️</h1>
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUycDF0ZnowYTVoemNpMWJpeDA0aGFidDdsbWRvdDd0a3JiMXN1YWVqZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif" alt="Hug Animation">
+  <h2>Do you want to go more deep with me my love 💓</h2>
+  <button class="yes" onclick="askKiss()">YES</button>
+  <button class="no">NO</button>
+</div>
+
+<!-- 3) Kiss Ask -->
+<div class="page" id="kissAsk">
+  <h1>Can I kiss you today because I can't wait for Tomorrow 💝😘</h1>
+  <button class="yes" onclick="kissAnimation()">YES</button>
+  <button class="no">NO</button>
+</div>
+
+<!-- 4) Kiss Animation -->
+<div class="page" id="kissAnim">
+  <h1>Here comes a kiss 💋</h1>
+  <img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUybHVwYWM0Y2VlNTdxZnE0ejBhbDF2d2YxYnJjZTgwMnZ5OWY4YnI5bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TJmckDZWy0Bq5lxQZD/giphy.gif" alt="Kiss Animation">
+  <h2>Noor, can you give me a favour? Can you touch my heart? ❤️</h2>
+  <button class="yes" onclick="finalHeart()">YES</button>
+  <button class="no">NO</button>
+</div>
+
+<!-- 5) Heart page -->
+<div class="page" id="final">
+  <h1>Noor, just press this heart 💖</h1>
+  <button class="heart-btn" onclick="showILoveYou()">💓</button>
+</div>
+
+<!-- 6) I LOVE YOU Noor -->
+<div class="page" id="lovePage">
+  <div id="loveText">I LOVE YOU NOOR 👀💗🤌🏻</div>
+  <img src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyMnhjanhnZG8wamJuZDFqempxNTJsdHFubHM1cGx0cG5wZXczNGQxayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7HdytY2FAUBKUf6T1w/giphy.gif" alt="Previous End GIF">
+  <button id="continueBtn" onclick="goSurprise()">Continue</button>
+</div>
+
+<!-- 7) Surprise + Cartoon -->
+<div class="page" id="surprise">
+  <h1>Tap your gift 💝</h1>
+  <div id="gift" onclick="openGift()">🎁</div>
+  <div id="cartoon" style="display:none;">
+    <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyMWFjYzZkMTBoczUzZnI3MmJnMG9yZ3R3b2Zsa29ncHF1ZXBxemxrdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/85zb1eujcmFWKsRLAA/giphy.gif" alt="Final Romantic Cartoon">
+  </div>
+  <div id="finalText"></div>
+</div>
+
+<script>
+// Floating emojis
+const emojis=["❤️","🌹"];
+let floatingInterval;
+function createFloating(){
+  const container=document.getElementById("floatingContainer");
+  const span=document.createElement("span");
+  span.className="floatingEmoji";
+  span.innerText=emojis[Math.floor(Math.random()*2)];
+  span.style.left = Math.random()*95+"%";
+  span.style.animationDuration = (6 + Math.random()*6) + "s";
+  container.appendChild(span);
+  setTimeout(()=>span.remove(),8000);
+}
+floatingInterval=setInterval(createFloating,250);
+
+function stopFloating(){ clearInterval(floatingInterval); document.getElementById("floatingContainer").innerHTML=""; }
+
+function showConfetti(){
+  for(let i=0;i<30;i++){
+    const conf=document.createElement("div");
+    conf.className="confetti-piece";
+    conf.style.left=Math.random()*100+"%";
+    conf.style.animationDuration=(2 + Math.random()*2) + "s";
+    document.body.appendChild(conf);
+    setTimeout(()=>conf.remove(),3000);
+  }
+}
+
+function show(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function moveNo(btn){
+  btn.style.top = Math.random()*70+"%";
+  btn.style.left = Math.random()*70+"%";
+}
+document.querySelectorAll(".no").forEach(btn=>{
+  btn.addEventListener("mouseover",()=>moveNo(btn));
+  btn.addEventListener("touchstart",()=>moveNo(btn));
+});
+
+function hugYes(){ show("hug"); }
+function askKiss(){ show("kissAsk"); }
+function kissAnimation(){ show("kissAnim"); }
+function finalHeart(){ show("final"); stopFloating(); }
+function showILoveYou(){ show("lovePage"); showConfetti(); }
+function goSurprise(){ show("surprise"); }
+
+function openGift(){
+  document.getElementById("gift").style.display="none";
+  document.getElementById("cartoon").style.display="block";
+  typeText("I know you love me my wife 👀💌🌚","finalText",0);
+}
+
+function typeText(txt,id,index){
+  if(index < txt.length){
+    document.getElementById(id).innerHTML += txt[index];
+    setTimeout(()=>typeText(txt,id,index+1),80);
+  }
+}
+</script>
+
+</body>
+</html>
